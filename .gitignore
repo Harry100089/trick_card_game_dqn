@@ -1,5 +1,6 @@
-# Program output
+# Program specific
 program_output/
+test.py
 
 # Mac .DS_Store files
 *.DS_Store
