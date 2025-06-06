@@ -59,29 +59,18 @@ class CardGame:
         if self.done:
             raise Exception("Game over. Please reset.")
 
-        # Determine which player's hand to pop from
-        current_player_idx = 0 if self.current_trick % 2 == 0 else 1
-        current_hand = self.players_hands[current_player_idx]
-        
-        # Check if action is within valid range
-        if action < 0 or action >= len(current_hand):
-            raise IndexError(f"Invalid action: {action}. Player has only {len(current_hand)} cards left.")
-
         # Get the current player's card
-        current_card = current_hand.pop(action)
+        current_card = self.players_hands[0 if self.current_trick % 2 == 0 else 1].pop(action)
         
-        # Determine the opponent's card
-        opponent_idx = 1 - current_player_idx  # If 0 -> 1, if 1 -> 0
-        opponent_hand = self.players_hands[opponent_idx]
-        
-        if len(opponent_hand) > 0:
-            opponent_card = opponent_hand.pop(random.choice(range(len(opponent_hand))))
+        # Determine the winner
+        if self.current_trick % 2 == 0:
+            # Player 1's turn
+            opponent_card = self.players_hands[1].pop(random.choice(range(len(self.players_hands[1]))))
         else:
-            opponent_card = None  # No more cards to play
-        
-        # Determine winner
-        winner = 0 if current_card[0] > opponent_card[0] else 1 if opponent_card else 0  # If no opponent card, player 1 wins
+            # Player 2's turn
+            opponent_card = self.players_hands[0].pop(random.choice(range(len(self.players_hands[0]))))
 
+        winner = 0 if current_card[0] > opponent_card[0] else 1
         self.tricks_won[winner] += 1
         
         # Update the trick count
@@ -89,6 +78,16 @@ class CardGame:
         
         # Check if the game is over
         self.done = self.current_trick >= 10
+
+        # Reward: +1 for winning, -1 for losing, 0 for neutral actions
+        reward = 1 if winner == 0 else -1
         
-        reward = 1 if winner == 0 else 0  # Reward player 1 for winning
+        # Game over reward: +10 for winning the game, -10 for losing
+        if self.done:
+            if self.tricks_won[0] > self.tricks_won[1]:  # Player 1 wins
+                reward += 10  # Big reward for winning the game
+            else:
+                reward -= 10  # Large penalty for losing the game
+
         return self.get_state(), reward, self.done
+
