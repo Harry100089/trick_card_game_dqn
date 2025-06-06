@@ -29,11 +29,16 @@ def train():
         while not done:
             # Epsilon-greedy action selection
             if random.random() < epsilon:
-                action = random.choice(range(output_size))
+                # Get the current player's hand size
+                current_hand_size = len(env.players_hands[0 if env.current_trick % 2 == 0 else 1])
+                action = random.choice(range(current_hand_size))  # Limit action to current hand size
             else:
                 state_tensor = torch.FloatTensor(state).unsqueeze(0)
                 q_values = model(state_tensor)
+                # Get the current player's hand size and select the best action within range
+                current_hand_size = len(env.players_hands[0 if env.current_trick % 2 == 0 else 1])
                 action = q_values.argmax().item()
+                action = min(action, current_hand_size - 1)  # Ensure action is within valid bounds
 
             next_state, reward, done = env.step(action)
 
