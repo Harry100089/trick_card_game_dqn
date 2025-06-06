@@ -51,10 +51,10 @@ def train():
                 states, actions, rewards, next_states, dones = zip(*batch)
 
                 # Convert to tensors
-                states = torch.FloatTensor(states)
-                actions = torch.LongTensor(actions)
-                rewards = torch.FloatTensor(rewards)
-                next_states = torch.FloatTensor(next_states)
+                states = torch.FloatTensor(np.array(states))
+                actions = torch.LongTensor(np.array(actions))
+                rewards = torch.FloatTensor(np.array(rewards))
+                next_states = torch.FloatTensor(np.array(next_states))
 
                 # Compute the target Q-values
                 with torch.no_grad():
