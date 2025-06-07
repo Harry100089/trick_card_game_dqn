@@ -13,7 +13,7 @@ epsilon = 0.1
 batch_size = 32
 discount_factor = 0.9
 learning_rate = 0.001
-num_episodes = 1000
+num_episodes = 10000
 replay_buffer = deque(maxlen=10000)
 
 # Initialize the game environment and the model
