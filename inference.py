@@ -12,7 +12,7 @@ model.eval()  # Set the model to evaluation mode (disables dropout, batchnorm, e
 env = CardGame()
 
 # Simulate n games and play using the trained model
-num_games = 1000
+num_games = 100000
 total_rewards = []
 
 for game in range(num_games):
@@ -41,7 +41,8 @@ for game in range(num_games):
         state = next_state
 
     total_rewards.append(total_reward)
-    print(f"Game {game + 1}/{num_games} - Total Reward: {total_reward}")
+    if game % 1000 == 0:
+        print(f"Game {game + 1}/{num_games} - Total Reward: {total_reward}")
 
 # Calculate the average reward for the 100 games
 average_reward = np.mean(total_rewards)
