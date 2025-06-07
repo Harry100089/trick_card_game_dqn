@@ -9,7 +9,11 @@ from collections import deque
 # Hyperparameters
 input_size = 20  # 10 cards per player * 2 players
 output_size = 10 # 10 possible actions (cards to play)
-epsilon = 0.1
+
+initial_epsilon = 1.0
+epsilon_decay = 0.995
+min_epsilon = 0.01
+
 batch_size = 32
 discount_factor = 0.9
 learning_rate = 0.001
@@ -23,6 +27,8 @@ optimizer = optim.Adam(model.parameters(), lr=learning_rate)
 criterion = torch.nn.MSELoss()
 
 def train():
+    epsilon = initial_epsilon
+
     for episode in range(num_episodes):
         state = env.reset()
         done = False
@@ -72,6 +78,8 @@ def train():
                 optimizer.step()
 
             state = next_state
+
+        epsilon = max(min_epsilon, epsilon * epsilon_decay)
 
         if episode % 100 == 0:
             print(f"Episode {episode}/{num_episodes} completed")
