@@ -10,4 +10,5 @@ docker run --rm -it -v $(pwd):/app test_ml_project /bin/bash
   
   
   
-Model 1 seems to average 6.7173 out of possible [-20, 20] against random
+Model 1 seems to average 6.7173 out of possible [-20, 20] against random  
+Model 2 (upped training eps to 10000 instead of 1000) average 7.56694 in [-20,20] 
