@@ -1,5 +1,5 @@
 # Card Game AI with Deep Q-Learning  
-This project implements a simple two-player trick-taking card game and trains a Deep Q-Network (DQN) model to play it optimally. The AI learns to play a custom 10-card trick game using reinforcement learning techniques.  
+This project trains a Deep Q-Network (DQN) model to play a simple two-player trick-taking card game optimally. The AI learns to play a custom 10-card trick game using reinforcement learning techniques.  
   
 **Features**  
 • Custom card game environment simulating 10 tricks between two players  
