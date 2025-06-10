@@ -14,7 +14,7 @@ This project implements a simple two-player trick-taking card game and trains a 
 • Have models train and play against each other  
 • Use different reward structure to force valid actions instead of manually forcing
   
-**Personal Notes**
+**Personal Notes**  
 Build and run Docker container:
 docker build -t trickgame_dqn .  
 docker run --rm -it trickgame_dqn 
