@@ -6,7 +6,6 @@ This project trains a Deep Q-Network (DQN) model to play a simple two-player tri
 • Deep Q-Network (DQN) implemented in PyTorch for learning the optimal strategy  
 • Experience replay buffer for efficient learning  
 • Epsilon-greedy exploration strategy  
-• Training script that saves the trained model  
 • Inference script to evaluate the trained model’s performance  
 • Dockerfile for easy environment setup and running training in a container  
   
